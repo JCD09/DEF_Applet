@@ -4,6 +4,8 @@
   "description": "Small app to be embedded into WordPress",
   "main": "index.html",
   "scripts": {
+    "start": "node your-script.js",
+    "build": "parcel build index.html",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -24,6 +26,7 @@
     "@vue/component-compiler-utils": "^3.0.0",
     "babel-core": "^6.26.3",
     "babel-preset-env": "^1.7.0",
+    "cssnano": "^4.1.10",
     "vue-template-compiler": "^2.6.10"
   }
 }
