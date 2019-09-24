@@ -1,0 +1,19 @@
+{
+  "name": "def_app",
+  "version": "0.0.1",
+  "description": "Small app to be embedded into WordPress",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JCD09/DEF_Applet.git"
+  },
+  "author": "Misha C",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JCD09/DEF_Applet/issues"
+  },
+  "homepage": "https://github.com/JCD09/DEF_Applet#readme"
+}
