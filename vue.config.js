@@ -1,3 +1,5 @@
 module.exports = {
-    publicPath: '/DEF_Appplet',
-  }
+  publicPath: process.env.NODE_ENV === 'production'
+    ? '/DEF_Applet/'
+    : '/'
+}

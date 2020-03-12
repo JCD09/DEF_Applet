@@ -1,22 +1,22 @@
 <template>
   <div id="app">
-    <h1>{{ msg }}</h1>
+    <h1>DEF Decision Caclulator</h1>
+    <Body></Body>
   </div>
 </template>
 
 <script>
+
+import Body from './components/Body.vue'
+
 export default {
   name: 'app',
-  data () {
-    return {
-      msg: 'Hello DEF App'
-    }
+  components:{
+    Body
   }
 }
+
 </script>
 
 <style lang="css">
-  #app {
-    color: #56b983;
-  }
 </style>
