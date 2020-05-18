@@ -13,8 +13,8 @@
               <b-th colspan="1">Score</b-th>
             </template>
           </b-tr>
-          <b-tr v-for="(row,value) in rows" 
-              v-bind:key="value"
+          <b-tr v-for="(row,rowID) in rows" 
+              v-bind:key="rowID"
               v-bind:value="row">
               <b-td>{{row['value']}}</b-td>
               <b-td>
@@ -25,8 +25,14 @@
                 </b-input>
               </b-td>
               <template v-for="(alternative, name) in row['alternatives']">
-                <b-td>{{alternative}}</b-td>
-                <b-td>{{alternative*row['weight']}}</b-td>
+                <b-td>
+                  <b-input 
+                    type=number min=0 v-bind:max=1 step="0.1"
+                    v-model.number = "row['alternatives'][name]"
+                    @change="updateAlternative($event,row['value'],name)">
+                  </b-input>
+                </b-td>
+                <b-td>{{row['weight']*getRating1(rowID,name)}}</b-td>
               </template>
 
           </b-tr>
@@ -161,13 +167,24 @@ export default {
 
     updateValue(newWeight, value){
       this.$store.dispatch('updateValue',{newWeight, value})
-      this.$forceUpdate
+      this.$forceUpdate()
       // dispatch update signal
+    },
+
+    updateAlternative(newRating, row, col){
+      //console.log(newRating+" "+value+" "+alternative)
+      this.$store.dispatch('updateAlternative', {newRating, row, col})
+      this.$forceUpdate()
+
     }
   },
 
   computed:{
-    ...mapState(['rows','alternatives','maxPerc']),
+    ...mapState(['rows','alternatives','maxPerc', 'getRating']),
+
+    getRating1(){
+      return (row,col) => this.$store.getters.getRating(row,col)
+    },
 
     validatePercentage(){
       var myRe = new RegExp(/(^[1-9][0-9]?$)|^(100)$/, 'g');

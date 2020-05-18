@@ -10,6 +10,7 @@ const REMOVE_CURRENT_VALUE = 'REMOVE_CURRENT_VALUE'
 const INSERT_ALTERNATIVE = 'INSERT_ALTERNATIVE'
 const REMOVE_CURRENT_ALTERNATIVE = 'REMOVE_CURRENT_ALTERNATIVE'
 const UPDATE_VALUE = 'UPDATE_VALUE'
+const UPDATE_ALTERNATIVE = 'UPDATE_ALTERNATIVE'
 
 const update = state => state.maxPerc = 100-(Object.values(state.rows).map(row => row.weight)).reduce(
     (accumulator, currentValue) => accumulator + currentValue,
@@ -31,7 +32,12 @@ export default new Vuex.Store({
         maxPerc: 100,
     },
     
-    getters:{},
+    getters:{
+        getRating: state => 
+           { return (row,col) => {
+                return state.rows[row]['alternatives'][col]
+          }}
+    },
 
     mutations:{
 
@@ -77,7 +83,12 @@ export default new Vuex.Store({
         [UPDATE_VALUE](state,payload){
             state.rows[payload.value]['weight']=parseInt(payload.newWeight)
             update(state)
-            console.log(state.rows[payload.value])
+            //console.log(state.rows[payload.value])
+        },
+
+        [UPDATE_ALTERNATIVE](state,payload){
+            state.rows[payload.row]['alternatives'][payload.col]=parseFloat(payload.newRating)
+            console.log(parseFloat(payload.newRating))
         }
 
     },
@@ -97,6 +108,9 @@ export default new Vuex.Store({
         },
         updateValue({commit},payload){
             commit(UPDATE_VALUE,payload)
+        },
+        updateAlternative({commit},payload){
+            commit(UPDATE_ALTERNATIVE,payload)
         }
     },
 });
