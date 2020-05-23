@@ -6,8 +6,8 @@
       <b-col>
         <b-table-simple responsive small fixed stripped bordered outlined>
           <b-tr>
-            <b-th colspan="1">Value</b-th>
-            <b-th colspan="1">Weight (%)</b-th>
+            <b-th colspan="1"><center>Value</center></b-th>
+            <b-th colspan="1"><center>Weight (%)</center></b-th>
             <template v-for="(alternative, name) in alternatives">
               <b-th colspan="1"><center>{{name}}</center></b-th>
               <b-th colspan="1"><center>Score</center></b-th>
@@ -88,18 +88,19 @@
               :disabled=!validatePercentage
               placeholder="Enter desired alternative"
               @click="insertValue(text,weight)">Insert New Value/Preference</b-btn>
-            <b-btn squared variant="secondary" @click="hideModal">Exit</b-btn>
+            <b-btn squared variant="secondary" @click="hideValueModal">Exit</b-btn>
       </div>
 
       
     </b-modal>
   <b-button v-b-modal.addAlternative >Create New Alternative</b-button>
-  <b-modal id="addAlternative">
+  <b-modal id="addAlternative" ref="alternativesModal">
     <p>Current Alternatives</p>
     <p></p>
     <b-list-group-item class="d-flex justify-content-between align-items-center"
         v-for="(alternative, name) in alternatives" 
         v-bind:key = "name"
+        button
         ><b>{{name}}</b><b-icon icon="trash" scale="2" button @click="removeAlternative(name)"></b-icon>
     </b-list-group-item>
     <p></p>
@@ -109,7 +110,7 @@
     <div slot="modal-footer">
         <b-btn squared variant="secondary" 
           @click="insertAlternative(text)">Insert New Alternative</b-btn>
-        <b-btn squared variant="secondary" @click="hideModal">Exit</b-btn>
+        <b-btn squared variant="secondary" @click="hideAlternativeModal">Exit</b-btn>
     </div>
   </b-modal>
 </div>
@@ -126,15 +127,19 @@ export default {
   name: 'Body',
    data() {
       return {
-        show: false,
+        showValueModal: false,
+        showAlternativesModal:false,
         weight: 0,
         text: ""
       }
    },
 
   methods:{
-    hideModal() {
+    hideValueModal() {
         this.$refs['valueModal'].hide()
+      },
+    hideAlternativeModal() {
+        this.$refs['alternativesModal'].hide()
       },
     // Had to add force update because of how vuejs handles reactivity. 
     insertValue(name, value){
