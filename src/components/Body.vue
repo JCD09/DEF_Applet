@@ -9,14 +9,14 @@
             <b-th colspan="1">Value</b-th>
             <b-th colspan="1">Weight (%)</b-th>
             <template v-for="(alternative, name) in alternatives">
-              <b-th colspan="1">{{name}}</b-th>
-              <b-th colspan="1">Score</b-th>
+              <b-th colspan="1"><center>{{name}}</center></b-th>
+              <b-th colspan="1"><center>Score</center></b-th>
             </template>
           </b-tr>
           <b-tr v-for="(row,rowID) in rows" 
               v-bind:key="rowID"
               v-bind:value="row">
-              <b-td>{{row['value']}}</b-td>
+              <b-td><center>{{row['value']}}</center></b-td>
               <b-td>
                 <b-input 
                 type=number min=0 v-bind:max="maxPerc+row['weight']"
@@ -28,44 +28,28 @@
                 <b-td>
                   <b-input 
                     type=number min=0 v-bind:max=1 step="0.1"
-                    v-model.number = "row['alternatives'][name]"
+                    v-model.number = "row['alternatives'][name]['weight']"
                     @change="updateAlternative($event,row['value'],name)">
                   </b-input>
                 </b-td>
-                <b-td>{{row['weight']*getRating1(rowID,name)}}</b-td>
+                <b-td>
+                  <center>{{Number(row['alternatives'][name]['product']).toFixed(2)}}</center>
+                </b-td>
               </template>
-
           </b-tr>
+          <b-tfoot>
+            <b-tr>
+              <b-td colspan="2"><b><center>Totals: Rating*Weight</center></b></b-td>
+              <b-td colspan="2" v-for="(alternative, name) in alternatives" v-bind:key="name">
+                <b><center>{{
+                  Number(Object.values(rows).map(row => row.alternatives).map(line=>line[name].product).
+                  reduce((accumulator, currentValue) => accumulator + currentValue, 0)).toFixed(2)}}</center></b>
+            </b-td>
+          <b-tfoot>
         </b-table-simple>
       </b-col>
     <b-row>
   </b-container>
-
-<!-- 
-                    <b-tr
-                        v-for="(value, name) in values" 
-                        v-bind:key="name" 
-                        v-bind:value="value">
-                          <b-td >{{name}}:</b-td>
-                          <b-td >{{value}}</b-td>
-                    </b-tr> -->
-
-
-  <!-- <b-th
-                     v-for="(value, key) in alternatives" 
-                     v-bind:key="key"
-                     v-bind:value="value">
-                      <b-th>{{key}}</b-th>
-                      <b-th>rating</b-th>
-                      <b-tr
-                        v-for="(valueInner, keyInner) in value"
-                        v-bind:key="keyInner"
-                        v-bind:value="valueInner"> 
-                        <b-td>{{valueInner}}</b-td>
-                        <b-td>0</b-td>
-                      <b-tr>
-                </b-th> -->
-
 
   <b-button v-b-modal.addValue >Create New Value</b-button>
     <b-modal 
@@ -75,19 +59,23 @@
 
       <p>Current Alternatives</p>
       <b-list-group>
-        <b-list-group-item 
+        <b-list-group-item class="d-flex justify-content-between align-items-center"
         v-for="(row, name) in rows" 
         v-bind:key="name" 
         v-bind:value="row"
         button
-        @click="removeCurrentValue(name)">{{name}}</b-list-group-item>
+        @click="removeCurrentValue(name)">{{name}}<b-icon icon="trash" scale="2" button @click="removeAlternative(name)"></b-icon></b-list-group-item>
       </b-list-group>
 
 
       <div>
+        <p></p>
         <p>New Value:</p>
+        <p></p>
         <b-form-input v-model="text" placeholder="Enter desired value/preferene"></b-form-input>
+         <p></p>
         <p>Weight (%). Enter number between 0 and {{maxPerc}}</p>
+        <p></p>
         <b-form-input 
         v-model="weight"
         placeholder="Enter Desired Weight"
@@ -98,7 +86,8 @@
       <div slot="modal-footer">
             <b-btn squared variant="secondary" 
               :disabled=!validatePercentage
-              @click="insertValue(text,weight)">Insert New Alternative</b-btn>
+              placeholder="Enter desired alternative"
+              @click="insertValue(text,weight)">Insert New Value/Preference</b-btn>
             <b-btn squared variant="secondary" @click="hideModal">Exit</b-btn>
       </div>
 
@@ -106,18 +95,22 @@
     </b-modal>
   <b-button v-b-modal.addAlternative >Create New Alternative</b-button>
   <b-modal id="addAlternative">
-    <b-list-group-item 
+    <p>Current Alternatives</p>
+    <p></p>
+    <b-list-group-item class="d-flex justify-content-between align-items-center"
         v-for="(alternative, name) in alternatives" 
         v-bind:key = "name"
-        button
-        @click="removeAlternative(name)">{{name}}
+        ><b>{{name}}</b><b-icon icon="trash" scale="2" button @click="removeAlternative(name)"></b-icon>
     </b-list-group-item>
+    <p></p>
+    <p>Enter Alternative</p>
     <b-form-input v-model="text" placeholder="Enter new Alternative"></b-form-input>
+    
     <div slot="modal-footer">
-            <b-btn squared variant="secondary" 
-              @click="insertAlternative(text)">Insert New Alternative</b-btn>
-            <b-btn squared variant="secondary" @click="hideModal">Exit</b-btn>
-      </div>
+        <b-btn squared variant="secondary" 
+          @click="insertAlternative(text)">Insert New Alternative</b-btn>
+        <b-btn squared variant="secondary" @click="hideModal">Exit</b-btn>
+    </div>
   </b-modal>
 </div>
 </template>
@@ -197,10 +190,6 @@ export default {
         }
       }
     },
-
-
-
-
   }
 }
 

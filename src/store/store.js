@@ -30,6 +30,9 @@ export default new Vuex.Store({
 
         // available percentage
         maxPerc: 100,
+
+        // colors 
+        colors: ['primary', 'secondary', 'success','warning','danger ','info','light','dark']
     },
     
     getters:{
@@ -44,51 +47,49 @@ export default new Vuex.Store({
         [INSERT_VALUE](state,payload){
 
             var row = {}
+
             row['value']=payload.name
             row['weight']=payload.weight
             row['alternatives']={}
             
-            // iterate through available alternatives and insert them into the object row 
-            Object.entries(state.alternatives).forEach(([key,_]) => row['alternatives'][key]=0)
-            
-            // insert new row
+            Object.entries(state.alternatives).forEach(([key,_]) => row['alternatives'][key]={weight:0,product:0})
             state.rows[payload.name]=row
-
-            // state.availPercentage=this.getters.calcNewPercentage
             update(state)
-
-            // update available percentage 
         },
 
         [REMOVE_CURRENT_VALUE](state,payload){
-            delete state.values[payload]
+            delete state.rows[payload]
             state.availPercentage=this.getters.calcNewPercentage
             update(state)
         },
 
         [INSERT_ALTERNATIVE](state,payload){
 
-            // insert new alternative into object
             state.alternatives[payload]=payload
-
-            // for each row(value) insert new alternative/weight pair
-            Object.values(state.rows).forEach(row => {row['alternatives'][payload]=0})
+            Object.values(state.rows).forEach(row => {row['alternatives'][payload]={weight:0,product:0}})
         
         },
 
         [REMOVE_CURRENT_ALTERNATIVE](state,payload){
+            console.log(payload)
             delete state.alternatives[payload]
+            Object.values(state.rows).map(row=>delete row.alternatives[payload])
         },
 
         [UPDATE_VALUE](state,payload){
-            state.rows[payload.value]['weight']=parseInt(payload.newWeight)
+            var newWeight = parseInt(payload.newWeight)
+            state.rows[payload.value]['weight'] = newWeight
+            Object.values(state.rows[payload.value].alternatives).forEach(alternative=>alternative.product=newWeight*alternative.weight)
             update(state)
-            //console.log(state.rows[payload.value])
         },
 
         [UPDATE_ALTERNATIVE](state,payload){
-            state.rows[payload.row]['alternatives'][payload.col]=parseFloat(payload.newRating)
-            console.log(parseFloat(payload.newRating))
+            console.log(payload)
+            var newWeight = parseFloat(payload.newRating)
+            var value = state.rows[payload.row].weight
+            state.rows[payload.row]['alternatives'][payload.col]['weight']=newWeight
+            state.rows[payload.row]['alternatives'][payload.col]['product']=newWeight*value
+            update(state)
         }
 
     },
