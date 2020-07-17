@@ -1,17 +1,18 @@
 <template>
-  <div id="app">
-    <h1>DEF Decision Caclulator</h1>
-    <Body></Body>
-  </div>
+<div id="app">
+  <Header></Header>
+  <Body></Body>
+</div>
 </template>
-
 <script>
 
 import Body from './components/Body.vue'
+import Header from './components/Header.vue'
 
 export default {
   name: 'app',
-  components:{
+  components: {
+    Header,
     Body
   }
 }

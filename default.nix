@@ -7,8 +7,8 @@ stdenv.mkDerivation {
     name = "Environment";
     nativeBuildInputs = with nodePackages; [
     npm
-    /* nodejs-12_x */
-     nodejs-10_x
+    # nodejs-12_x
+    nodejs-10_x
     parcel-bundler
     vscode
     git
