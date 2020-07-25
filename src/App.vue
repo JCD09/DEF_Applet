@@ -1,23 +1,29 @@
 <template>
-<div id="app">
-  <Header></Header>
-  <Body></Body>
-</div>
+  <div id="app">
+    <Body></Body>
+  </div>
 </template>
-<script>
 
-import Body from './components/Body.vue'
+<script>
 import Header from './components/Header.vue'
+import Body from './components/Body.vue'
+import Footer from './components/Footer.vue'
 
 export default {
   name: 'app',
   components: {
     Header,
-    Body
+    Body,
+    Footer
   }
 }
-
 </script>
 
-<style lang="css">
+<style lang="scss">
+@import './src/index.scss';
+
+#app {
+  //this is where we use the variable
+  color: $primary;
+}
 </style>

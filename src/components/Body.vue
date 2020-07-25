@@ -1,34 +1,44 @@
 <template>
-<div class="body">
-    <Panel></Panel>
-    <Table></Table>
-</div>
+  <div id="body">
+    <Table v-if="layout==='TABLE'"></Table>
+    <Scroll v-if="layout==='SCROLL'"></Scroll>
+    <button @click="switch_layout">Change Layout</button>
+  </div>
 </template>
 
 <script>
-import { mapState } from 'vuex'
-import Panel from './table/Panel.vue'
-import Table from './table/Table.vue'
+import Scroll from './Layoyt/Scroll/Scroll.vue'
+import Table from './Layoyt/Table/Table.vue'
+
+let table = 'TABLE'; 
+let scroll = 'SCROLL';
+let empty = 'EMPTY'
 
 export default {
-    name: 'Body',
-    components: {
-        Panel,
-        Table
-    },
-
+  name: 'Body',
+  components: {
+    Scroll,
+    Table
+  },
+  data() {
+    return {
+      layout:scroll
+    }
+  },
+  methods:{
+    switch_layout(){
+      if(this.layout===scroll){this.layout=table}
+      else{this.layout=scroll}
+    }
+  }
 }
+
 </script>
 
-<style>
-/* .body{
-    border: 1px solid black
-} */
-.body {
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    height: 400px;
-    padding: 5px;
+<style lang="scss">
+
+#body {
+  color: black;
 }
+
 </style>

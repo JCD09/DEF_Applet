@@ -70,7 +70,7 @@ export default new Vuex.Store({
         },
 
         [REMOVE_CURRENT_ALTERNATIVE](state,payload){
-            // console.log(payload)
+            console.log(payload)
             delete state.alternatives[payload]
             Object.values(state.rows).map(row=>delete row.alternatives[payload])
         },

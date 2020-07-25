@@ -1,16 +1,9 @@
 import Vue from 'vue';
-import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
-import { BootstrapVueIcons } from 'bootstrap-vue'
 import App from './App.vue';
-import 'bootstrap/dist/css/bootstrap.css'
-import 'bootstrap-vue/dist/bootstrap-vue.css'
-import store from './store/store.js'
-
-Vue.use(BootstrapVue)
-Vue.use(BootstrapVueIcons)
+import store from './store/store.js';
 
 new Vue({
   el: '#app',
-  store,
+  store, // include store into the app component so it is accessible to all of the elements?
   render: h => h(App)
 });
