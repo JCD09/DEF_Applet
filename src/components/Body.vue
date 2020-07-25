@@ -2,7 +2,7 @@
   <div id="body">
     <Table v-if="layout==='TABLE'"></Table>
     <Scroll v-if="layout==='SCROLL'"></Scroll>
-    <button @click="switch_layout">Change Layout</button>
+    <!-- <button @click="switch_layout">Change Layout</button> -->
   </div>
 </template>
 
@@ -22,7 +22,7 @@ export default {
   },
   data() {
     return {
-      layout:scroll
+      layout:table
     }
   },
   methods:{

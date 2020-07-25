@@ -113,7 +113,6 @@
 
 .buttons {
   height:15%;
-
   display: flex; 
   flex-direction: row;
   justify-content: space-evenly;

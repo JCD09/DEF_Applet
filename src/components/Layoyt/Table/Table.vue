@@ -4,8 +4,8 @@
       <table>
       <thead>
           <tr>
-            <th rowspan="2" colspan="1">Weight</th>
-            <th rowspan="2" colspan="1">Value(%):</th>
+            <th rowspan="2" colspan="1">Value</th>
+            <th rowspan="2" colspan="1">Weight(%):</th>
             <template v-for="(alternative, name) in alternatives">
               <th id="alternative-header" colspan="2">{{name}}
                 <i id="icon" class="fas fa-trash-alt" button @click="removeAlternative(name)" >
