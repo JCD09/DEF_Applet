@@ -96,6 +96,8 @@ export default {
 }
 
 #minus, #plus {
+    align-items: center;
+    justify-content: center;
     width: 30%;
     text-align: center;
     text-decoration: none;

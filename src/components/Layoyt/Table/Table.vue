@@ -173,9 +173,9 @@ export default {
 <style lang="scss" scoped>
 @import './src/index.scss';
 
-// #table-container {
-//   overflow:scroll;
-// }
+#table-container {
+  // overflow-x:scroll;
+}
 
 #table-controls {
   display: flex;

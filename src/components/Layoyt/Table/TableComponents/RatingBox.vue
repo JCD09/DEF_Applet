@@ -56,6 +56,10 @@ export default {
 }
 
 #minus, #plus {
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    
     width: 30%;
     text-align: center;
     text-decoration: none;
