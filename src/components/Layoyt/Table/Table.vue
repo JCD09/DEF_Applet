@@ -12,29 +12,12 @@
               </i>
               </th>
             </template>
-            <th id="add_column" rowspan="1">
-
-
-
-              <input v-model="new_alternative" placeholder="New Alternative" id="new-alternative">
-              <i id="icon" class="fas fa-plus-square " button @click="insertAlternative(new_alternative)" >
-              <!-- <button @click="insertAlternative(new_alternative)">Add Column</button> -->
-            </th>
           </tr>
           <tr>
             <template v-for="(alternative) in alternatives">
               <th >Rating</th>
               <th >Score</th>
             </template>
-                        <th id="add_column" rowspan="1">
-
-
-
-              <input v-model="new_value" placeholder="New Value" id="new-alternative">
-              <i id="icon" class="fas fa-plus-square " button @click="insertValue(new_value, weight)" >
-              <!-- <button @click="insertAlternative(new_alternative)">Add Column</button> -->
-            </th>
-
           </tr> 
         </thead>
         <tbody>
@@ -87,6 +70,18 @@
           <button @click="insertAlternative(new_alternative)">Add Column</button>
         </div>
       <div> -->
+  <div id="buttons">
+    <div id="new_alternative">
+      <label>Insert New Alternative:</label>
+      <input v-model="new_alternative">
+      <i class="fas fa-plus-square" button @click="insertAlternative(new_alternative)" >
+    </div>
+    <div id="new_value">
+      <label>Insert New Value:</label>
+      <input v-model="new_value">
+      <i class="fas fa-plus-square" button @click="insertValue(new_value,0)" >
+    </div>
+  </div>
   </div>
 </template>
 
@@ -187,20 +182,21 @@ export default {
   flex-direction: row;
 }
 
-#add_column{
-  width: 170px;
-  input{
-    border: none;
-    width: 130px;
-    color: $black;
-  }
-  i{
-      font-size: 24px;
-      display: inline;
-      vertical-align: middle;
+// #add_column{
+//   width: 170px;
+//   input{
+//     border: none;
+//     width: 130px;
+//     color: $black;
+//   }
+//   i{
+//       font-size: 24px;
+//       display: inline;
+//       vertical-align: middle;
+//       cursor: pointer;
 
-  }
-}
+//   }
+// }
 table{
   // table-layout:auto;
   border-spacing: 0;
@@ -254,7 +250,7 @@ td{
 }
 
 #score_box{
-  text-align: right;
+  text-align: center;
 }
 
 #footer_totals{
@@ -275,10 +271,80 @@ font-size: 16px;
 
 #icon{
   float:right;
+  cursor: pointer;
 }
 
 #icon_value{
   float:right;
-  color:$primary
+  color:$primary;
+  cursor: pointer;
 }
+
+
+#buttons{
+  display:flex;
+  flex-direction:column;
+  align-items: center;
+  justify-content:flex-start;
+
+  // border: 1px solid $black;
+  width:350px;
+
+  font: $small-title;
+
+  #new_alternative{
+    display:flex;
+    flex-direction:row;
+    align-items: center;
+    justify-content: space-around;
+    align-content:center;
+    width:100%;
+    
+    margin-left:10px;
+    label{
+      width: 200px;
+    }
+
+    input{
+      border:1px solid $primary;
+      color: $black;
+      width: 100px;
+    }
+
+    i{
+      font-size:28px;
+      color: $primary;
+      cursor: pointer;
+    }
+  }
+
+ #new_value{
+
+    display:flex;
+    flex-direction:row;
+    align-items: center;
+    justify-content: space-around;
+    align-content:center;
+    width:100%;
+    
+    margin-left:10px;
+    label{
+      width: 200px;
+    }
+
+    input{
+      border:1px solid $primary;
+      color: $black;
+      width: 100px;
+    }
+
+    i{
+      font-size:28px;
+      color: $primary;
+      cursor: pointer;
+    }
+  }
+
+}
+
 </style>
